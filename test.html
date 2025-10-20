@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Quick Start - Leaflet</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 1080px;
+			width: 1920px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+
+
+<div id="map"></div>
+<script>
+
+	const map = L.map('map').setView([33.976614651051825, -6.866906344452382], 15);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const marker = L.marker([33.976614651051825, -6.866906344452382]).addTo(map)
+		.bindPopup('<b>Salle de cour</b><br />Bloc Topo.').openPopup();
+
+	const circle = L.circle([33.9826403782033, -6.8642643203581795], {
+		color: 'green',
+		fillColor: '#006400',
+		fillOpacity: 0.5,
+		radius: 7
+	}).addTo(map).bindPopup('Terminus Tram');
+
+	const polygon = L.polygon([
+		[33.9815480223529, -6.863867122653241],
+		[33.98084519281177, -6.862788874619605],
+		[33.98049266385612, -6.85894325743801],
+		[33.980205597837, -6.858495540600828],
+		[33.9736484915665, -6.86464316367496],
+		[33.97284772482758, -6.865018672942322],
+		[33.971557584751515, -6.865297622680736],
+		[33.97027632283559, -6.86645633698554],
+		[33.9729900839159, -6.870608396558258],
+		[33.97468947710706, -6.870522565862582]
+	]).addTo(map).bindPopup('IAV Hasan II');
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`You clicked the map at ${e.latlng.toString()}`)
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+
+</script>
+
+
+
+</body>
+</html>
